@@ -1,12 +1,145 @@
+// Unified observer options
+const observerOptions = {
+    root: null,
+    rootMargin: '20px',
+    threshold: 0.1
+};
+
+// Single IntersectionObserver instance
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('animate');
+            observer.unobserve(entry.target);
+        }
+    });
+}, observerOptions);
+
+// Observe all animated elements
+document.querySelectorAll('section, .service-card, .skill-category, .project-card, .experience-card, .contact-card').forEach((el) => {
+    observer.observe(el);
+});
+
+// Mobile Menu Handler
+const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+const navLinks = document.querySelector('.nav-links');
+
+mobileMenuBtn.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+    // Change menu icon
+    const menuIcon = mobileMenuBtn.querySelector('i');
+    menuIcon.classList.toggle('fa-bars');
+    menuIcon.classList.toggle('fa-times');
+});
+
+// Close mobile menu when clicking outside
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.mobile-menu-btn') && !e.target.closest('.nav-links')) {
+        navLinks.classList.remove('active');
+        const menuIcon = mobileMenuBtn.querySelector('i');
+        menuIcon.classList.replace('fa-times', 'fa-bars');
+    }
+});
+
 // Smooth scrolling for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
+        
+        // Close mobile menu if open
+        if (navLinks.classList.contains('active')) {
+            navLinks.classList.remove('active');
+            const menuIcon = mobileMenuBtn.querySelector('i');
+            menuIcon.classList.replace('fa-times', 'fa-bars');
+        }
+
         document.querySelector(this.getAttribute('href')).scrollIntoView({
             behavior: 'smooth'
         });
     });
 });
+
+// Contact Form Handling
+const contactForm = document.getElementById('contactForm');
+const submitBtn = contactForm.querySelector('.submit-btn');
+
+contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    // Add sending animation
+    submitBtn.classList.add('sending');
+    submitBtn.innerHTML = '<span>Sending...</span> <i class="fas fa-spinner fa-spin"></i>';
+
+    // Simulate form submission (replace with actual form submission)
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
+    // Show success message
+    submitBtn.classList.remove('sending');
+    submitBtn.innerHTML = '<span>Sent Successfully!</span> <i class="fas fa-check"></i>';
+    submitBtn.style.background = '#4CAF50';
+
+    // Reset form
+    setTimeout(() => {
+        contactForm.reset();
+        submitBtn.innerHTML = '<span>Send Message</span> <i class="fas fa-paper-plane"></i>';
+        submitBtn.style.background = '';
+    }, 3000);
+});
+
+// Responsive Image Loading
+function handleResponsiveImages() {
+    const profileImage = document.querySelector('.profile-image img');
+    if (profileImage) {
+        const currentSrc = profileImage.getAttribute('src');
+        if (window.innerWidth <= 768) {
+            // Only change if not already using small image
+            if (!currentSrc.includes('-small')) {
+                profileImage.setAttribute('src', currentSrc.replace(/(\.[^.]+)$/, '-small$1'));
+            }
+        } else {
+            // Revert to original image for larger screens
+            if (currentSrc.includes('-small')) {
+                profileImage.setAttribute('src', currentSrc.replace('-small', ''));
+            }
+        }
+    }
+}
+
+// Debounced window resize handler
+let resizeTimer;
+window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(handleResponsiveImages, 250);
+});
+
+// Initialize responsive features
+document.addEventListener('DOMContentLoaded', () => {
+    handleResponsiveImages();
+    
+    // Add smooth scroll behavior for contact section links
+    document.querySelectorAll('.contact-info a').forEach(link => {
+        link.addEventListener('click', (e) => {
+            const href = link.getAttribute('href');
+            if (href.startsWith('mailto:') || href.startsWith('tel:')) {
+                return; // Allow default behavior for email and phone links
+            }
+            e.preventDefault();
+        });
+    });
+
+    // Initialize animations for elements in viewport on load
+    const animatedElements = document.querySelectorAll('.skill-category, .project-card, .experience-card, .contact-card');
+    animatedElements.forEach(element => {
+        if (element.getBoundingClientRect().top < window.innerHeight) {
+            element.classList.add('animate');
+        }
+    });
+});
+
+// Performance optimization for animations on mobile
+if (window.matchMedia('(max-width: 768px)').matches) {
+    document.documentElement.style.setProperty('--animate-duration', '0.5s');
+}
 
 // Add scroll animation for elements
 const observerOptions = {
@@ -23,11 +156,6 @@ const observer = new IntersectionObserver((entries) => {
         }
     });
 }, observerOptions);
-
-// Observe all sections and cards
-document.querySelectorAll('section, .service-card').forEach((el) => {
-    observer.observe(el);
-});
 
 // Add hover effect for service cards
 document.querySelectorAll('.service-card').forEach(card => {
@@ -65,33 +193,6 @@ stats.forEach(stat => {
     });
 
     statsObserver.observe(stat);
-});
-
-// Contact Form Handling
-const contactForm = document.getElementById('contactForm');
-const submitBtn = contactForm.querySelector('.submit-btn');
-
-contactForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    // Add sending animation
-    submitBtn.classList.add('sending');
-    submitBtn.innerHTML = '<span>Sending...</span> <i class="fas fa-spinner fa-spin"></i>';
-
-    // Simulate form submission (replace with actual form submission)
-    await new Promise(resolve => setTimeout(resolve, 2000));
-
-    // Show success message
-    submitBtn.classList.remove('sending');
-    submitBtn.innerHTML = '<span>Sent Successfully!</span> <i class="fas fa-check"></i>';
-    submitBtn.style.background = '#4CAF50';
-
-    // Reset form
-    setTimeout(() => {
-        contactForm.reset();
-        submitBtn.innerHTML = '<span>Send Message</span> <i class="fas fa-paper-plane"></i>';
-        submitBtn.style.background = '';
-    }, 3000);
 });
 
 // Animate contact cards on scroll
