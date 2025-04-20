@@ -10,6 +10,8 @@
     --container-width-lg: 75%;
     --container-width-md: 86%;
     --container-width-sm: 90%;
+    --navbar-height: 70px;
+    --transition-speed: 0.3s;
 }
 
 * {
@@ -48,51 +50,310 @@ h2::after {
     border-radius: 2px;
 }
 
+/* Accessibility - Skip Link */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--accent-color);
+    color: var(--primary-color);
+    padding: 8px;
+    z-index: 1001;
+    transition: top 0.3s;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
 /* Navbar Styles */
 .navbar {
-    background-color: var(--secondary-color);
-    padding: 1rem 2rem;
     position: fixed;
-    width: 100%;
     top: 0;
+    left: 0;
+    right: 0;
+    height: var(--navbar-height);
+    background: rgba(26, 26, 26, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     z-index: 1000;
+    transition: all var(--transition-speed) ease;
 }
 
-.nav-content {
+.navbar.scrolled {
+    background: var(--secondary-color);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.nav-container {
     max-width: 1200px;
     margin: 0 auto;
+    height: 100%;
+    padding: 0 1.5rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 }
 
-.logo {
+/* Navigation Links */
+.nav-elements {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    font-size: 1.5rem;
-    font-weight: bold;
-}
-
-.logo img {
-    width: 30px;
-    height: 30px;
+    justify-content: center;
+    width: 100%;
+    position: relative;
 }
 
 .nav-links {
     display: flex;
     gap: 2rem;
     list-style: none;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
 }
 
-.nav-links a {
+.nav-link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     color: var(--text-color);
     text-decoration: none;
-    transition: color 0.3s;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: all var(--transition-speed) ease;
 }
 
-.nav-links a:hover {
+.nav-link i {
+    font-size: 1.1rem;
+    transition: transform var(--transition-speed) ease;
+}
+
+.nav-link:hover i {
+    transform: translateY(-2px);
+}
+
+.nav-link:hover {
     color: var(--accent-color);
+    background: rgba(255, 215, 0, 0.1);
+}
+
+.nav-link.active {
+    color: var(--accent-color);
+    background: rgba(255, 215, 0, 0.1);
+}
+
+/* Tooltip */
+.nav-tooltip {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: var(--secondary-color);
+    color: var(--text-color);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-speed) ease;
+    white-space: nowrap;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.nav-tooltip::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 8px;
+    height: 8px;
+    background: var(--secondary-color);
+}
+
+.nav-link:hover .nav-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Scroll Progress Bar */
+.scroll-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.progress-bar {
+    height: 100%;
+    background: var(--gradient);
+    width: 0;
+    transition: width 0.1s ease;
+}
+
+/* Theme Toggle */
+.theme-toggle {
+    display: none;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .nav-container {
+        padding: 0.5rem;
+    }
+
+    .nav-elements {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    }
+
+    .nav-elements::-webkit-scrollbar {
+        display: none;
+    }
+
+    .nav-links {
+        gap: 0.5rem;
+        padding: 0.5rem;
+        width: auto;
+        white-space: nowrap;
+    }
+
+    .nav-link {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .nav-link i {
+        font-size: 1.2rem;
+    }
+
+    .nav-link span:not(.nav-tooltip) {
+        display: none;
+    }
+
+    .nav-link.active span:not(.nav-tooltip) {
+        display: inline-block;
+    }
+
+    .nav-tooltip {
+        display: none;
+    }
+
+    .theme-toggle {
+        position: fixed;
+        bottom: 1rem;
+        right: 1rem;
+        background: var(--secondary-color);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+/* Tablet Styles */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .nav-link {
+        padding: 0.5rem 0.8rem;
+    }
+
+    .nav-links {
+        gap: 1rem;
+    }
+}
+
+/* High DPI Screens */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .navbar {
+        border-bottom: 0.5px solid rgba(255, 255, 255, 0.1);
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .navbar {
+        position: static;
+        background: none;
+        color: black;
+    }
+
+    .nav-link {
+        color: black;
+    }
+
+    .theme-toggle,
+    .scroll-progress {
+        display: none;
+    }
+}
+
+/* Adjust hero section padding */
+.hero {
+    padding-top: calc(70px + 2rem);
+}
+
+/* Touch device optimizations */
+@media (hover: none) {
+    .nav-link:hover {
+        background: none;
+    }
+    
+    .nav-link:active {
+        background: rgba(255, 215, 0, 0.1);
+    }
+}
+
+/* Additional mobile optimizations */
+@media (max-width: 480px) {
+    .nav-link {
+        padding: 0.4rem;
+    }
+
+    .nav-link i {
+        font-size: 1.2rem;
+    }
+}
+
+/* Prevent content shifting */
+html {
+    scrollbar-gutter: stable;
+}
+
+/* Additional mobile optimizations */
+@media (max-width: 480px) {
+    .nav-link {
+        padding: 0.4rem;
+    }
+
+    .nav-link i {
+        font-size: 1.2rem;
+    }
+
+    .logo a {
+        font-size: 1.5rem;
+    }
 }
 
 /* Hero Section */
@@ -1155,7 +1416,7 @@ footer {
     }
 }
 
-/* Mobile Menu */
+/* Mobile Menu Styles */
 .mobile-menu-btn {
     display: none;
     font-size: 1.5rem;
@@ -1163,23 +1424,136 @@ footer {
     border: none;
     color: var(--text-color);
     cursor: pointer;
+    padding: 0.5rem;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.mobile-menu-btn:focus {
+    outline: none;
+}
+
+.mobile-menu-btn.active {
+    transform: rotate(90deg);
 }
 
 @media (max-width: 768px) {
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 60px;
+        background-color: var(--secondary-color);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        padding: 0 1rem;
+    }
+
+    .nav-content {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
     .mobile-menu-btn {
-        display: block;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-links {
+        display: none;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: var(--secondary-color);
+        padding: 2rem 1.5rem;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in-out;
     }
 
     .nav-links.active {
         display: flex;
         flex-direction: column;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background-color: var(--secondary-color);
-        padding: 1rem;
+        gap: 1rem;
+        transform: translateX(0);
+        animation: slideIn 0.3s ease-out forwards;
     }
+
+    .nav-links li {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+
+    .nav-links.active li {
+        opacity: 1;
+        transform: translateX(0);
+        transition: all 0.3s ease;
+    }
+
+    .nav-links.active li:nth-child(1) { transition-delay: 0.1s; }
+    .nav-links.active li:nth-child(2) { transition-delay: 0.2s; }
+    .nav-links.active li:nth-child(3) { transition-delay: 0.3s; }
+    .nav-links.active li:nth-child(4) { transition-delay: 0.4s; }
+    .nav-links.active li:nth-child(5) { transition-delay: 0.5s; }
+    .nav-links.active li:nth-child(6) { transition-delay: 0.6s; }
+
+    .nav-links a {
+        display: block;
+        padding: 1rem 1.5rem;
+        text-align: center;
+        font-size: 1.1rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus {
+        background: rgba(255, 215, 0, 0.1);
+        transform: translateX(5px);
+    }
+
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateX(100%);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    /* Adjust hero section to account for fixed navbar */
+    .hero {
+        padding-top: calc(60px + 2rem);
+    }
+}
+
+/* Touch device optimizations */
+@media (hover: none) {
+    .mobile-menu-btn:active {
+        background: rgba(255, 255, 255, 0.1);
+    }
+}
+
+/* Prevent content shifting when scrollbar appears/disappears */
+html {
+    scrollbar-gutter: stable;
 }
 
 /* Animations */

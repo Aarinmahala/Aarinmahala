@@ -21,24 +21,112 @@ document.querySelectorAll('section, .service-card, .skill-category, .project-car
 });
 
 // Mobile Menu Handler
-const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-const navLinks = document.querySelector('.nav-links');
+document.addEventListener('DOMContentLoaded', () => {
+    // Elements
+    const navbar = document.querySelector('.navbar');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const progressBar = document.querySelector('.progress-bar');
+    const skipLink = document.querySelector('.skip-link');
 
-mobileMenuBtn.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-    // Change menu icon
-    const menuIcon = mobileMenuBtn.querySelector('i');
-    menuIcon.classList.toggle('fa-bars');
-    menuIcon.classList.toggle('fa-times');
-});
+    // Set animation duration
+    document.documentElement.style.setProperty('--animate-duration', '0.5s');
 
-// Close mobile menu when clicking outside
-document.addEventListener('click', (e) => {
-    if (!e.target.closest('.mobile-menu-btn') && !e.target.closest('.nav-links')) {
-        navLinks.classList.remove('active');
-        const menuIcon = mobileMenuBtn.querySelector('i');
-        menuIcon.classList.replace('fa-times', 'fa-bars');
-    }
+    // Scroll Progress
+    const updateProgress = () => {
+        const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        progressBar.style.width = `${scrolled}%`;
+    };
+
+    // Scroll Handling
+    const handleScroll = () => {
+        // Update navbar background
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+
+        // Update progress bar
+        updateProgress();
+
+        // Update active link based on scroll position
+        const scrollPosition = window.scrollY + navbar.offsetHeight + 100;
+
+        navLinks.forEach(link => {
+            const section = document.querySelector(link.getAttribute('href'));
+            if (section) {
+                const sectionTop = section.offsetTop;
+                const sectionBottom = sectionTop + section.offsetHeight;
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                }
+            }
+        });
+    };
+
+    // Smooth Scroll
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+
+            if (targetSection) {
+                const offsetTop = targetSection.offsetTop - navbar.offsetHeight;
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth'
+                });
+            }
+        });
+
+        // Add tooltips
+        const text = link.textContent.trim();
+        const tooltip = document.createElement('span');
+        tooltip.className = 'nav-tooltip';
+        tooltip.textContent = text;
+        link.appendChild(tooltip);
+    });
+
+    // Skip Link
+    skipLink?.addEventListener('click', (e) => {
+        e.preventDefault();
+        const main = document.querySelector('main');
+        if (main) {
+            main.tabIndex = -1;
+            main.focus();
+        }
+    });
+
+    // Event Listeners
+    window.addEventListener('scroll', handleScroll);
+    document.addEventListener('keydown', (e) => {
+        // Add keyboard navigation
+        if (e.key === 'Tab') {
+            document.body.classList.add('keyboard-nav');
+        }
+    });
+    document.addEventListener('mousedown', () => {
+        document.body.classList.remove('keyboard-nav');
+    });
+
+    // Initialize
+    handleScroll();
+
+    // Performance optimization
+    let scrollTimeout;
+    window.addEventListener('scroll', () => {
+        if (!scrollTimeout) {
+            scrollTimeout = setTimeout(() => {
+                handleScroll();
+                scrollTimeout = null;
+            }, 10);
+        }
+    }, { passive: true });
 });
 
 // Smooth scrolling for navigation links
@@ -46,13 +134,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
         
-        // Close mobile menu if open
-        if (navLinks.classList.contains('active')) {
-            navLinks.classList.remove('active');
-            const menuIcon = mobileMenuBtn.querySelector('i');
-            menuIcon.classList.replace('fa-times', 'fa-bars');
-        }
-
         document.querySelector(this.getAttribute('href')).scrollIntoView({
             behavior: 'smooth'
         });
@@ -140,22 +221,6 @@ document.addEventListener('DOMContentLoaded', () => {
 if (window.matchMedia('(max-width: 768px)').matches) {
     document.documentElement.style.setProperty('--animate-duration', '0.5s');
 }
-
-// Add scroll animation for elements
-const observerOptions = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.1
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('animate');
-            observer.unobserve(entry.target);
-        }
-    });
-}, observerOptions);
 
 // Add hover effect for service cards
 document.querySelectorAll('.service-card').forEach(card => {

@@ -4,29 +4,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#1a1a1a">
+    <meta name="description" content="Aarin Mahala - AI & ML Enthusiast, Web Developer, and Blockchain Technology Expert">
+    <meta name="keywords" content="Aarin Mahala, AI, ML, Web Development, Blockchain, Portfolio">
+    <meta name="author" content="Aarin Mahala">
+    <meta property="og:title" content="Aarin Mahala | Portfolio">
+    <meta property="og:description" content="AI & ML Enthusiast, Web Developer, and Blockchain Technology Expert">
+    <meta property="og:type" content="website">
     <title>Aarin Mahala | Portfolio</title>
+    
+    <!-- Preload critical assets -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style">
+    
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- PWA Support -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-content">
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <button class="mobile-menu-btn">
-                <i class="fas fa-bars"></i>
-            </button>
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+            <div class="nav-elements">
+                <ul class="nav-links" role="menubar">
+                    <li role="none">
+                        <a href="#home" class="nav-link active" role="menuitem" aria-current="page">
+                            <i class="fas fa-home" aria-hidden="true"></i>
+                            <span>Home</span>
+                            <span class="nav-tooltip">Home</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="#about" class="nav-link" role="menuitem">
+                            <i class="fas fa-user" aria-hidden="true"></i>
+                            <span>About</span>
+                            <span class="nav-tooltip">About Me</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="#skills" class="nav-link" role="menuitem">
+                            <i class="fas fa-code" aria-hidden="true"></i>
+                            <span>Skills</span>
+                            <span class="nav-tooltip">My Skills</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="#projects" class="nav-link" role="menuitem">
+                            <i class="fas fa-project-diagram" aria-hidden="true"></i>
+                            <span>Projects</span>
+                            <span class="nav-tooltip">My Projects</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="#experience" class="nav-link" role="menuitem">
+                            <i class="fas fa-briefcase" aria-hidden="true"></i>
+                            <span>Experience</span>
+                            <span class="nav-tooltip">My Experience</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="#contact" class="nav-link" role="menuitem">
+                            <i class="fas fa-envelope" aria-hidden="true"></i>
+                            <span>Contact</span>
+                            <span class="nav-tooltip">Contact Me</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <!-- Progress indicator -->
+                <div class="scroll-progress" aria-hidden="true">
+                    <div class="progress-bar"></div>
+                </div>
+            </div>
         </div>
     </nav>
+
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
     <section id="home" class="hero">
         <div class="hero-content">
