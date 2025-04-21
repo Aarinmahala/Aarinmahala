@@ -1906,4 +1906,14 @@ html {
     section {
         page-break-inside: avoid;
     }
+}
+
+.experience-details {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+    margin-left: 0.5rem;
+    padding-left: 1rem;
+    border-left: 2px solid var(--accent-color);
+    opacity: 0.8;
 } 

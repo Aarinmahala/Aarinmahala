@@ -147,24 +147,42 @@ const submitBtn = contactForm.querySelector('.submit-btn');
 contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     
+    // Get form data
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const subject = document.getElementById('subject').value;
+    const message = document.getElementById('message').value;
+    
+    // Create email body
+    const emailBody = `Name: ${name}
+Email: ${email}
+
+Message:
+${message}`;
+
+    // Create mailto URL
+    const mailtoUrl = `mailto:aarinmahala1@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+    
     // Add sending animation
     submitBtn.classList.add('sending');
-    submitBtn.innerHTML = '<span>Sending...</span> <i class="fas fa-spinner fa-spin"></i>';
+    submitBtn.innerHTML = '<span>Opening Email Client...</span> <i class="fas fa-spinner fa-spin"></i>';
 
-    // Simulate form submission (replace with actual form submission)
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    // Open email client
+    window.location.href = mailtoUrl;
 
-    // Show success message
-    submitBtn.classList.remove('sending');
-    submitBtn.innerHTML = '<span>Sent Successfully!</span> <i class="fas fa-check"></i>';
-    submitBtn.style.background = '#4CAF50';
-
-    // Reset form
+    // Show success message after a short delay
     setTimeout(() => {
-        contactForm.reset();
-        submitBtn.innerHTML = '<span>Send Message</span> <i class="fas fa-paper-plane"></i>';
-        submitBtn.style.background = '';
-    }, 3000);
+        submitBtn.classList.remove('sending');
+        submitBtn.innerHTML = '<span>Email Client Opened</span> <i class="fas fa-check"></i>';
+        submitBtn.style.background = '#4CAF50';
+
+        // Reset form and button
+        setTimeout(() => {
+            contactForm.reset();
+            submitBtn.innerHTML = '<span>Send Message</span> <i class="fas fa-paper-plane"></i>';
+            submitBtn.style.background = '';
+        }, 3000);
+    }, 1000);
 });
 
 // Responsive Image Loading
@@ -423,17 +441,16 @@ document.addEventListener('DOMContentLoaded', () => {
     handleContactResponsive();
     addContactAnimations();
     
-    // Add smooth scroll behavior for contact section links
+    // Handle email and phone links
     document.querySelectorAll('.contact-info a').forEach(link => {
         link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const target = e.target.closest('a');
-            if (target) {
-                const href = target.getAttribute('href');
-                if (href.startsWith('mailto:') || href.startsWith('tel:')) {
-                    window.location.href = href;
-                }
+            const href = link.getAttribute('href');
+            // Allow default behavior for email and phone links
+            if (href.startsWith('mailto:') || href.startsWith('tel:')) {
+                return; // This will allow the default behavior to open mail client or phone dialer
             }
+            // Prevent default for other links
+            e.preventDefault();
         });
     });
 }); 
