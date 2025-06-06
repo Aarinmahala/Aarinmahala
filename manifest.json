@@ -1,0 +1,21 @@
+{
+  "name": "Aarin Mahala | Portfolio",
+  "short_name": "Aarin Mahala",
+  "description": "AI & ML Enthusiast, Web Developer, and Blockchain Technology Expert",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a1a1a",
+  "theme_color": "#1a1a1a",
+  "icons": [
+    {
+      "src": "im11-small.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "webdevloper.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    }
+  ]
+} 

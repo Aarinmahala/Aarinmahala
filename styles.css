@@ -651,8 +651,8 @@ html {
     .about-content {
         grid-template-columns: 1fr;
         gap: 2rem;
-    }
-    
+}
+
     .stat-container {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -669,14 +669,14 @@ html {
     
     .highlight-item {
         flex-direction: column;
-        align-items: center;
+    align-items: center;
         text-align: center;
-        gap: 1rem;
+    gap: 1rem;
     }
     
     .interest-tags {
         justify-content: center;
-    }
+}
 }
 
 /* Skills Section */
@@ -819,7 +819,7 @@ html {
     border-radius: 10px;
     overflow: hidden;
     position: relative;
-}
+    }
 
 .skill-bar {
     height: 100%;
@@ -858,18 +858,18 @@ html {
 @media (max-width: 768px) {
     .skill-category {
         padding: 1.5rem;
-    }
-    
+}
+
     .skill-header {
         margin-bottom: 1.2rem;
-    }
-    
+}
+
     .skill-header i {
         font-size: 1.2rem;
         width: 35px;
         height: 35px;
-    }
-    
+}
+
     .skill-header h3 {
         font-size: 1.1rem;
     }
@@ -1192,16 +1192,16 @@ html {
     
     .project-image {
         height: 220px;
-    }
-    
+}
+
     .project-content {
         padding: 1.5rem;
     }
     
     .project-content h3 {
         font-size: 1.3rem;
-    }
-    
+}
+
     .projects-cta {
         margin-top: 4rem;
     }
@@ -1220,16 +1220,16 @@ html {
     
     .project-image {
         height: 180px;
-    }
-    
+}
+
     .project-content {
         padding: 1.2rem;
     }
     
     .project-tech {
         gap: 0.6rem;
-    }
-    
+}
+
     .project-tech span {
         padding: 0.4rem 0.8rem;
         font-size: 0.8rem;
@@ -1250,8 +1250,8 @@ html {
 @media (hover: none) {
     .project-card:hover {
         transform: none;
-    }
-    
+}
+
     .project-card:active {
         transform: scale(0.98);
     }
@@ -2127,17 +2127,17 @@ html {
 
 .response-time:hover .response-icon i {
     color: var(--primary-color);
-}
-
+    }
+    
 .response-info {
     flex: 1;
-}
+    }
 
 .response-info h4 {
     color: var(--text-color);
     margin-bottom: 0.3rem;
-    font-size: 1.1rem;
-}
+        font-size: 1.1rem;
+    }
 
 .response-info p {
     color: var(--text-secondary);
@@ -2145,7 +2145,7 @@ html {
 
 .availability-hours {
     margin-top: 0.8rem;
-    font-size: 0.9rem;
+        font-size: 0.9rem;
     color: var(--text-secondary);
     padding: 0.5rem 0;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
@@ -2153,12 +2153,12 @@ html {
 
 .availability-hours p {
     margin-bottom: 0.3rem;
-}
-
+    }
+    
 .availability-hours i {
     color: var(--accent-color);
     margin-right: 0.5rem;
-}
+    }
 
 .timezone-info {
     margin-top: 0.8rem;
@@ -2195,12 +2195,12 @@ html {
 }
 
 .preferred-methods {
-    display: flex;
-    align-items: center;
+        display: flex;
+        align-items: center;
     justify-content: center;
     flex-wrap: wrap;
     gap: 0.8rem;
-}
+    }
 
 .preferred-methods span {
     color: var(--text-secondary);
@@ -2209,7 +2209,7 @@ html {
 
 .preferred-method {
     display: inline-flex;
-    align-items: center;
+        align-items: center;
     gap: 0.3rem;
     padding: 0.3rem 0.8rem;
     background: rgba(255, 215, 0, 0.1);
@@ -2230,7 +2230,7 @@ html {
         align-items: center;
         text-align: center;
     }
-    
+
     .copy-email-btn, .whatsapp-btn, .call-btn, .location-btn, .send-mail-btn {
         padding: 0.4rem 0.8rem;
         font-size: 0.8rem;
@@ -2248,21 +2248,21 @@ html {
 /* Footer */
 footer {
     background-color: var(--secondary-color);
-    text-align: center;
+        text-align: center;
     padding: 2rem;
     color: var(--text-secondary);
-}
+    }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .contact-info {
         grid-template-columns: 1fr;
         gap: 1rem;
-    }
+        }
 
     .contact-card {
         padding: 1.2rem;
-    }
+        }
 
     .contact-item i {
         width: 35px;
@@ -2615,7 +2615,7 @@ html {
         transform: scale(4);
         opacity: 0;
     }
-}
+} 
 
 /* Social Section */
 .social-section {
