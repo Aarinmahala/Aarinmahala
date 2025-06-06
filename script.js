@@ -227,11 +227,241 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Initialize animations for elements in viewport on load
-    const animatedElements = document.querySelectorAll('.skill-category, .project-card, .experience-card, .contact-card');
+    const animatedElements = document.querySelectorAll('.skill-category, .project-card, .timeline-item, .contact-card, .social-card, .highlight-item, .stat-item, .interests-container');
     animatedElements.forEach(element => {
         if (element.getBoundingClientRect().top < window.innerHeight) {
             element.classList.add('animate');
         }
+    });
+    
+    // Counter animation for stats
+    const statNumbers = document.querySelectorAll('.stat-number');
+    
+    function animateCounter(element) {
+        const target = parseInt(element.getAttribute('data-count'));
+        let count = 0;
+        const duration = 2000; // 2 seconds
+        const interval = Math.floor(duration / target);
+        
+        const timer = setInterval(() => {
+            count++;
+            element.textContent = count + '+';
+            
+            if (count >= target) {
+                clearInterval(timer);
+            }
+        }, interval);
+    }
+    
+    // Intersection Observer for stats
+    const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateCounter(entry.target);
+                statsObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+    
+    // Observe stat numbers
+    statNumbers.forEach(stat => {
+        statsObserver.observe(stat);
+    });
+
+    // Animate skill bars when they come into view
+    const skillBars = document.querySelectorAll('.skill-bar');
+    
+    // Intersection Observer for skill bars
+    const skillObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const skillBar = entry.target;
+                const width = skillBar.style.width;
+                
+                // First set width to 0
+                skillBar.style.width = '0';
+                
+                // Then animate to the target width
+                setTimeout(() => {
+                    skillBar.style.width = width;
+                }, 100);
+                
+                skillObserver.unobserve(skillBar);
+            }
+        });
+    }, { threshold: 0.1 });
+    
+    // Observe skill bars
+    skillBars.forEach(bar => {
+        skillObserver.observe(bar);
+    });
+
+    // Add hover effect for social cards
+    const socialCards = document.querySelectorAll('.social-card');
+    socialCards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            const icon = card.querySelector('.social-icon');
+            const iconI = card.querySelector('.social-icon i');
+            const title = card.querySelector('h3');
+            const desc = card.querySelector('p');
+            
+            icon.style.transform = 'scale(1.1) rotate(10deg)';
+            iconI.style.transform = 'scale(1.1)';
+            title.style.transform = 'translateY(-2px)';
+            desc.style.transform = 'translateY(-2px)';
+        });
+
+        card.addEventListener('mouseleave', () => {
+            const icon = card.querySelector('.social-icon');
+            const iconI = card.querySelector('.social-icon i');
+            const title = card.querySelector('h3');
+            const desc = card.querySelector('p');
+            
+            icon.style.transform = 'none';
+            iconI.style.transform = 'none';
+            title.style.transform = 'none';
+            desc.style.transform = 'none';
+        });
+
+        // Add click effect
+        card.addEventListener('click', () => {
+            card.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                card.style.transform = '';
+            }, 150);
+        });
+
+        // Add keyboard navigation
+        card.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                card.click();
+            }
+        });
+    });
+
+    // Intersection Observer for social cards
+    const socialObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }, index * 100);
+                socialObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.2,
+        rootMargin: '50px'
+    });
+
+    socialCards.forEach(card => {
+        socialObserver.observe(card);
+    });
+    
+    // Timeline Animations
+    const timelineItems = document.querySelectorAll('.timeline-item');
+    const certificationCards = document.querySelectorAll('.certification-card');
+    
+    // Animate timeline items when scrolled into view
+    const timelineObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate');
+                
+                // Add staggered animation to certification cards
+                if (entry.target.querySelector('.certification-grid')) {
+                    const cards = entry.target.querySelectorAll('.certification-card');
+                    cards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, 300 + (index * 150));
+                    });
+                }
+                
+                // Add staggered animation to achievement items
+                if (entry.target.querySelector('.achievement-list')) {
+                    const items = entry.target.querySelectorAll('.achievement-list li');
+                    items.forEach((item, index) => {
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'translateX(0)';
+                        }, 300 + (index * 150));
+                    });
+                }
+                
+                // Add staggered animation to timeline achievements items
+                if (entry.target.querySelector('.timeline-achievements')) {
+                    const achievementItems = entry.target.querySelectorAll('.timeline-achievements li');
+                    achievementItems.forEach((item, index) => {
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'translateX(0)';
+                        }, 300 + (index * 120));
+                    });
+                }
+                
+                // Add staggered animation to skill items
+                if (entry.target.querySelector('.timeline-skills')) {
+                    const skills = entry.target.querySelectorAll('.timeline-skills li');
+                    skills.forEach((skill, index) => {
+                        setTimeout(() => {
+                            skill.style.opacity = '1';
+                            skill.style.transform = 'translateY(0)';
+                        }, 500 + (index * 100));
+                    });
+                }
+                
+                timelineObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+    });
+    
+    timelineItems.forEach(item => {
+        // Set initial state
+        item.classList.remove('animate');
+        
+        // Set initial states for inner elements
+        const achievementItems = item.querySelectorAll('.achievement-list li, .timeline-achievements li');
+        achievementItems.forEach(achievement => {
+            achievement.style.opacity = '0';
+            achievement.style.transform = 'translateX(-20px)';
+            achievement.style.transition = 'all 0.5s ease';
+        });
+        
+        const skillItems = item.querySelectorAll('.timeline-skills li');
+        skillItems.forEach(skill => {
+            skill.style.opacity = '0';
+            skill.style.transform = 'translateY(10px)';
+            skill.style.transition = 'all 0.3s ease';
+        });
+        
+        const certItems = item.querySelectorAll('.certification-card');
+        certItems.forEach(cert => {
+            cert.style.opacity = '0';
+            cert.style.transform = 'translateY(10px)';
+            cert.style.transition = 'all 0.3s ease';
+        });
+        
+        timelineObserver.observe(item);
+    });
+    
+    // Add hover effects for certification cards
+    certificationCards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            const icon = card.querySelector('.certification-icon');
+            icon.style.transform = 'scale(1.1) rotate(10deg)';
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            const icon = card.querySelector('.certification-icon');
+            icon.style.transform = 'none';
+        });
     });
 });
 
@@ -316,34 +546,113 @@ contactIcons.forEach(icon => {
     });
 });
 
-// Social buttons hover effect
-const socialBtns = document.querySelectorAll('.social-btn');
+// Social Links Animation and Interaction
+document.addEventListener('DOMContentLoaded', () => {
+    const socialBtns = document.querySelectorAll('.social-btn');
+    const socialLinksContainer = document.querySelector('.social-links-container');
 
-socialBtns.forEach(btn => {
-    btn.addEventListener('mouseover', () => {
-        btn.style.transform = 'translateY(-5px)';
+    // Add hover animations for social buttons
+    socialBtns.forEach(btn => {
+        btn.addEventListener('mouseenter', () => {
+            const icon = btn.querySelector('.social-icon i');
+            const name = btn.querySelector('.social-name');
+            const handle = btn.querySelector('.social-handle');
+            
+            icon.style.transform = 'scale(1.2) rotate(360deg)';
+            name.style.transform = 'translateX(5px)';
+            handle.style.transform = 'translateX(5px)';
+            
+            // Add hover effect gradient
+            btn.querySelector('.social-hover-effect').style.opacity = '0.1';
+        });
+
+        btn.addEventListener('mouseleave', () => {
+            const icon = btn.querySelector('.social-icon i');
+            const name = btn.querySelector('.social-name');
+            const handle = btn.querySelector('.social-handle');
+            
+            icon.style.transform = 'scale(1) rotate(0)';
+            name.style.transform = 'translateX(0)';
+            handle.style.transform = 'translateX(0)';
+            
+            // Remove hover effect gradient
+            btn.querySelector('.social-hover-effect').style.opacity = '0';
+        });
+
+        // Add click animation and ripple effect
+        btn.addEventListener('click', function(e) {
+            // Scale animation
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 100);
+
+            // Ripple effect
+            const ripple = document.createElement('div');
+            ripple.classList.add('ripple');
+            this.appendChild(ripple);
+
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+
+            ripple.style.width = ripple.style.height = `${size}px`;
+            ripple.style.left = `${x}px`;
+            ripple.style.top = `${y}px`;
+
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        });
     });
 
-    btn.addEventListener('mouseout', () => {
-        btn.style.transform = 'translateY(0)';
+    // Animate social links container on scroll into view
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+                
+                // Animate social buttons sequentially
+                const buttons = entry.target.querySelectorAll('.social-btn');
+                buttons.forEach((btn, index) => {
+                    setTimeout(() => {
+                        btn.style.opacity = '1';
+                        btn.style.transform = 'translateY(0)';
+                    }, index * 100);
+                });
+                
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.2,
+        rootMargin: '50px'
     });
-});
 
-// Add ripple effect to submit button
-submitBtn.addEventListener('click', function(e) {
-    let ripple = document.createElement('span');
-    ripple.classList.add('ripple');
-    this.appendChild(ripple);
-    
-    let x = e.clientX - e.target.offsetLeft;
-    let y = e.clientY - e.target.offsetTop;
-    
-    ripple.style.left = `${x}px`;
-    ripple.style.top = `${y}px`;
-    
-    setTimeout(() => {
-        ripple.remove();
-    }, 600);
+    if (socialLinksContainer) {
+        socialLinksContainer.style.opacity = '0';
+        socialLinksContainer.style.transform = 'translateY(20px)';
+        
+        // Set initial state for social buttons
+        socialBtns.forEach(btn => {
+            btn.style.opacity = '0';
+            btn.style.transform = 'translateY(20px)';
+        });
+        
+        observer.observe(socialLinksContainer);
+    }
+
+    // Add keyboard navigation
+    socialBtns.forEach(btn => {
+        btn.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                btn.click();
+            }
+        });
+    });
 });
 
 // Responsive Contact Section Handling
