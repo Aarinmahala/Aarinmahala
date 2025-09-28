@@ -1053,8 +1053,8 @@
             if (typeof newProjects !== 'undefined') {
                 const projectsGrid = document.querySelector('.projects-grid');
                 if (projectsGrid) {
-                    // Add new projects to the grid
-                    newProjects.forEach(project => {
+                    // Preload all project data to prevent loading delays
+                    const projectElements = newProjects.map(project => {
                         const projectCard = document.createElement('div');
                         projectCard.className = 'project-card';
                         
@@ -1129,7 +1129,14 @@
                         
                         projectContent.appendChild(linksDiv);
                         projectCard.appendChild(projectContent);
-                        projectsGrid.appendChild(projectCard);
+                        return projectCard;
+                    });
+                    
+                    // Add all projects at once to reduce reflow and improve performance
+                    requestAnimationFrame(() => {
+                        projectElements.forEach(card => {
+                            projectsGrid.appendChild(card);
+                        });
                     });
                 }
             }
