@@ -1,0 +1,178 @@
+/* Container Cover Animation Styles
+   Inspired by Aceternity UI's Container Cover component */
+
+/* Container Cover Wrapper */
+.container-cover-wrapper {
+  position: relative;
+  width: 100%;
+  display: inline-block;
+  overflow: hidden;
+}
+
+/* Container Cover Main Element */
+.container-cover {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 8px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.container-cover.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Text Element */
+.cover-text {
+  position: relative;
+  z-index: 10;
+  font-weight: 700;
+  background: linear-gradient(
+    to right bottom,
+    rgba(255, 255, 255, 0.95),
+    rgba(255, 255, 255, 0.7)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 10px rgba(79, 70, 229, 0.3);
+  letter-spacing: -0.02em;
+}
+
+/* Beams Container */
+.cover-beams {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 0.7;
+  filter: blur(10px);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  transform: translate(
+    calc((var(--mouse-x, 50%) - 50%) * -0.05),
+    calc((var(--mouse-y, 50%) - 50%) * -0.05)
+  );
+}
+
+/* Individual Beam */
+.cover-beam {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--width, 2px);
+  height: 200%;
+  background: linear-gradient(
+    to top,
+    rgba(79, 70, 229, 0),
+    rgba(79, 70, 229, 1),
+    rgba(139, 92, 246, 1),
+    rgba(217, 70, 239, 1),
+    rgba(79, 70, 229, 0)
+  );
+  opacity: var(--opacity, 0.1);
+  transform-origin: center top;
+  transform: translateX(-50%) rotate(var(--angle, 0deg));
+  animation: beam-animation var(--duration, 3s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+@keyframes beam-animation {
+  0%, 100% {
+    opacity: var(--opacity, 0.1);
+    transform: translateX(-50%) rotate(var(--angle, 0deg)) translateY(0);
+  }
+  50% {
+    opacity: calc(var(--opacity, 0.1) * 1.5);
+    transform: translateX(-50%) rotate(var(--angle, 0deg)) translateY(-10px);
+  }
+}
+
+/* Stars Container */
+.cover-stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+  transform: translate(
+    calc((var(--mouse-x, 50%) - 50%) * -0.1),
+    calc((var(--mouse-y, 50%) - 50%) * -0.1)
+  );
+}
+
+/* Individual Star */
+.cover-star {
+  position: absolute;
+  width: var(--size, 2px);
+  height: var(--size, 2px);
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+  left: var(--x, 50%);
+  top: var(--y, 50%);
+  opacity: 0;
+  animation: star-animation var(--duration, 2s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+@keyframes star-animation {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Gradient Overlay */
+.cover-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  background: radial-gradient(
+    circle at center,
+    rgba(79, 70, 229, 0.2),
+    rgba(79, 70, 229, 0.1) 40%,
+    rgba(79, 70, 229, 0) 60%
+  );
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+/* Hero text specific adjustments */
+.hero-text h1 {
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  font-size: 3.5rem;
+  line-height: 1.2;
+}
+
+/* Media queries for responsive design */
+@media (max-width: 768px) {
+  .cover-beams {
+    opacity: 0.5;
+  }
+  
+  .hero-text h1 {
+    font-size: 2.5rem;
+  }
+}
