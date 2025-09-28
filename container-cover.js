@@ -50,31 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
       beamsContainer.appendChild(beam);
     }
     
-    // Create stars container
-    const starsContainer = document.createElement('div');
-    starsContainer.className = 'cover-stars';
-    
-    // Create individual stars
-    const starCount = 50;
-    for (let i = 0; i < starCount; i++) {
-      const star = document.createElement('div');
-      star.className = 'cover-star';
-      
-      // Set random properties for each star
-      const size = 1 + Math.random() * 2;
-      const x = Math.random() * 100;
-      const y = Math.random() * 100;
-      const delay = Math.random() * 3;
-      const duration = 1 + Math.random() * 2;
-      
-      star.style.setProperty('--size', `${size}px`);
-      star.style.setProperty('--x', `${x}%`);
-      star.style.setProperty('--y', `${y}%`);
-      star.style.setProperty('--delay', `${delay}s`);
-      star.style.setProperty('--duration', `${duration}s`);
-      
-      starsContainer.appendChild(star);
-    }
+    // No stars animation - removed as requested
     
     // Create the gradient overlay
     const gradientOverlay = document.createElement('div');
@@ -82,7 +58,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Assemble the components
     containerCover.appendChild(beamsContainer);
-    containerCover.appendChild(starsContainer);
     containerCover.appendChild(gradientOverlay);
     containerCover.appendChild(textElement);
     
@@ -102,11 +77,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const xPercent = (x / rect.width) * 100;
       const yPercent = (y / rect.height) * 100;
       
-      // Update beam and star positions
+      // Update beam positions
       beamsContainer.style.setProperty('--mouse-x', `${xPercent}%`);
       beamsContainer.style.setProperty('--mouse-y', `${yPercent}%`);
-      starsContainer.style.setProperty('--mouse-x', `${xPercent}%`);
-      starsContainer.style.setProperty('--mouse-y', `${yPercent}%`);
       
       // Update beam intensity based on mouse position
       const beams = beamsContainer.querySelectorAll('.cover-beam');
@@ -126,8 +99,6 @@ document.addEventListener('DOMContentLoaded', () => {
     containerCover.addEventListener('mouseleave', () => {
       beamsContainer.style.setProperty('--mouse-x', '50%');
       beamsContainer.style.setProperty('--mouse-y', '50%');
-      starsContainer.style.setProperty('--mouse-x', '50%');
-      starsContainer.style.setProperty('--mouse-y', '50%');
       
       // Reset beam opacity
       const beams = beamsContainer.querySelectorAll('.cover-beam');
