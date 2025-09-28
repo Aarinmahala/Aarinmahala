@@ -1,0 +1,714 @@
+/* Enhanced Animation Styles with Aceternity UI Inspiration */
+
+/* ===== Lamp Section Header ===== */
+.lamp-header {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 3rem;
+  padding-top: 2rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.lamp-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.lamp-header h2 {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  padding: 1rem 2rem;
+  background: rgba(26, 26, 26, 0.8);
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(8px);
+}
+
+.lamp-light {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.lamp-visible .lamp-light {
+  opacity: 1;
+}
+
+.lamp-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease 0.2s;
+}
+
+.lamp-visible .lamp-glow {
+  opacity: 1;
+}
+
+.lamp-shine-line {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 1px;
+  height: 100px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+  transform-origin: top center;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.lamp-visible .lamp-shine-line {
+  opacity: 0.5;
+}
+
+.lamp-shine-line.line-1 {
+  transform: rotate(0deg);
+  transition-delay: 0.3s;
+}
+
+.lamp-shine-line.line-2 {
+  transform: rotate(45deg);
+  transition-delay: 0.4s;
+}
+
+.lamp-shine-line.line-3 {
+  transform: rotate(-45deg);
+  transition-delay: 0.5s;
+}
+
+.lamp-cord {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  width: 2px;
+  height: 30px;
+  background: #444;
+  transform: translateX(-50%);
+}
+
+.lamp-shade {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  width: 40px;
+  height: 10px;
+  background: #333;
+  border-radius: 50% 50% 0 0;
+  transform: translateX(-50%);
+}
+
+/* ===== Enhanced Timeline Styles ===== */
+.modern-timeline {
+  position: relative;
+  overflow: visible;
+  padding: 2rem 0;
+}
+
+.timeline-wrapper {
+  position: relative;
+  width: 100%;
+  perspective: 1000px;
+}
+
+.timeline-progress-line {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 4px;
+  height: 0;
+  background: linear-gradient(to bottom, #4f46e5, #8b5cf6, #d946ef);
+  transform: translateX(-50%);
+  z-index: 0;
+  transition: height 0.5s ease-out;
+  box-shadow: 0 0 15px rgba(79, 70, 229, 0.5);
+}
+
+.timeline-scroll-indicator {
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.5rem;
+  animation: bounce 2s infinite;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.section-visible .timeline-scroll-indicator {
+  opacity: 1;
+}
+
+.timeline-animate {
+  opacity: 0;
+  transform: translateY(50px) scale(0.95);
+  animation: fadeInUp 1s ease forwards;
+  animation-delay: var(--animation-delay, 0s);
+}
+
+.content-animate {
+  opacity: 0;
+  transform: translateX(30px) scale(0.95);
+  animation: fadeInRight 0.8s ease forwards;
+  animation-delay: calc(var(--animation-delay, 0s) + 0.2s);
+}
+
+.content-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.4s ease;
+  will-change: transform;
+}
+
+.inner-animate {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s ease forwards;
+  animation-delay: calc(var(--animation-delay, 0s) + var(--inner-delay, 0s));
+}
+
+.glowing-dot {
+  box-shadow: 0 0 0 5px rgba(79, 70, 229, 0.1), 
+              0 0 0 10px rgba(79, 70, 229, 0.05),
+              0 0 20px rgba(79, 70, 229, 0.5);
+  animation: pulse 2s infinite;
+  transition: transform 0.3s ease;
+}
+
+.timeline-hover-effect:hover .timeline-content {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.timeline-shine-effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  border-radius: inherit;
+}
+
+.timeline-particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: floatParticle linear infinite;
+}
+
+.timeline-glow-effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(79, 70, 229, 0.1) 0%,
+    rgba(79, 70, 229, 0) 70%
+  );
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ===== Enhanced Background Beams ===== */
+.background-beams {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -2;
+  overflow: hidden;
+}
+
+.beam {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(15px);
+  transform: rotate(-45deg);
+  transition: transform 0.3s ease;
+  will-change: transform, opacity;
+}
+
+.beam-collision {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: collisionPulse 0.5s ease-out forwards;
+  z-index: 1;
+}
+
+/* ===== Exploding Beams ===== */
+.exploding-beams-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.exploding-beam {
+  position: absolute;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2));
+  border-radius: 4px;
+  transform-origin: center;
+  animation: beamTravel linear forwards;
+}
+
+.exploding-beam.from-explosion {
+  animation: beamFromExplosion linear forwards;
+}
+
+.beam-explosion {
+  position: absolute;
+  width: 0;
+  height: 0;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.explosion-particle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.explosion-particle.explode {
+  animation: particleExplode var(--duration) ease-out forwards;
+}
+
+.explosion-flash {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: flashExpand 0.3s ease-out forwards;
+}
+
+.explosion-shockwave {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  transform: translate(-50%, -50%);
+  animation: shockwaveExpand 0.5s ease-out forwards;
+}
+
+/* ===== Enhanced Spotlight ===== */
+.spotlight-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.spotlight {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.primary-spotlight {
+  z-index: 3;
+}
+
+.secondary-spotlight {
+  z-index: 2;
+}
+
+.accent-spotlight {
+  z-index: 1;
+}
+
+.has-spotlight {
+  position: relative;
+  overflow: hidden;
+}
+
+.image-spotlight {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  border-radius: inherit;
+}
+
+.image-spotlight.secondary-layer {
+  z-index: 3;
+}
+
+.image-spotlight.rim-layer {
+  z-index: 1;
+}
+
+.header-spotlight {
+  position: relative;
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.header-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ===== Enhanced 3D Card Effect ===== */
+.card-3d {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  overflow: visible;
+  will-change: transform;
+}
+
+.shine-effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  border-radius: inherit;
+}
+
+.edge-highlight {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  border-radius: inherit;
+}
+
+.card-shadow {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.8;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.card-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.parallax-container {
+  position: relative;
+  z-index: 1;
+}
+
+.parallax-layer {
+  position: relative;
+  transition: transform 0.2s ease-out;
+  will-change: transform;
+}
+
+.layer-1 {
+  z-index: 4;
+}
+
+.layer-2 {
+  z-index: 3;
+}
+
+.layer-3 {
+  z-index: 2;
+}
+
+.layer-4 {
+  z-index: 1;
+}
+
+/* ===== Enhanced Sparkles ===== */
+.sparkle-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.sparkle {
+  position: absolute;
+  border-radius: 50%;
+  animation: sparkleAnimation ease-in-out forwards;
+  will-change: transform, opacity;
+}
+
+.mouse-sparkle {
+  animation: mouseSparkleAnimation ease-out forwards;
+}
+
+/* ===== Animations ===== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(79, 70, 229, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(79, 70, 229, 0);
+  }
+}
+
+@keyframes floatParticle {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: var(--opacity, 0.5);
+  }
+  90% {
+    opacity: var(--opacity, 0.5);
+  }
+  100% {
+    transform: translateY(var(--move-y, -100px)) translateX(var(--move-x, 20px));
+    opacity: 0;
+  }
+}
+
+@keyframes collisionPulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(3);
+    opacity: 0;
+  }
+}
+
+@keyframes beamTravel {
+  0% {
+    transform: translate(0, 0) rotate(var(--rotation, 0deg));
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(calc(var(--end-x) - 100%), calc(var(--end-y) - 100%)) rotate(var(--end-rotation, 0deg));
+    opacity: 0;
+  }
+}
+
+@keyframes beamFromExplosion {
+  0% {
+    transform: translate(0, 0) rotate(var(--rotation, 0deg)) scale(0);
+    opacity: 0;
+  }
+  10% {
+    transform: translate(0, 0) rotate(var(--rotation, 0deg)) scale(1);
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(calc(var(--end-x) - 100%), calc(var(--end-y) - 100%)) rotate(var(--end-rotation, 0deg));
+    opacity: 0;
+  }
+}
+
+@keyframes particleExplode {
+  0% {
+    transform: translate(-50%, -50%) scale(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: 
+      translate(
+        calc(cos(var(--angle)) * var(--distance)), 
+        calc(sin(var(--angle)) * var(--distance))
+      ) 
+      scale(1)
+      rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes flashExpand {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+  70% {
+    width: 100px;
+    height: 100px;
+    opacity: 0.8;
+  }
+  100% {
+    width: 150px;
+    height: 150px;
+    opacity: 0;
+  }
+}
+
+@keyframes shockwaveExpand {
+  0% {
+    width: 0;
+    height: 0;
+    border-width: 2px;
+    opacity: 1;
+  }
+  100% {
+    width: 300px;
+    height: 300px;
+    border-width: 1px;
+    opacity: 0;
+  }
+}
+
+@keyframes sparkleAnimation {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1) rotate(180deg);
+    opacity: var(--opacity, 0.8);
+  }
+  100% {
+    transform: scale(0) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes mouseSparkleAnimation {
+  0% {
+    transform: translate(-50%, -50%) scale(0) rotate(0deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.5) rotate(180deg);
+    opacity: 0;
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  40% {
+    transform: translateX(-50%) translateY(-10px);
+  }
+  60% {
+    transform: translateX(-50%) translateY(-5px);
+  }
+}
+
+/* Media queries for responsive design */
+@media (max-width: 768px) {
+  .lamp-header {
+    padding-top: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .lamp-shine-line {
+    height: 50px;
+  }
+  
+  .timeline-progress-line {
+    left: 30px;
+  }
+}
