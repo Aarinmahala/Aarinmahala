@@ -20,8 +20,7 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="enhanced-styles.css">
     <link rel="stylesheet" href="enhanced-styles-fix.css">
-    <link rel="stylesheet" href="container-cover-no-stars.css">
-    <link rel="stylesheet" href="progress-bar-fix.css">
+    <link rel="stylesheet" href="components/aceternity-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
@@ -750,11 +749,11 @@
                                     <a href="mailto:aarinmahala1@gmail.com" class="send-mail-btn">
                                         <i class="fas fa-paper-plane"></i> Send Mail
                                     </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="contact-card">
+                        <div class="contact-card">
                             <div class="contact-card-icon whatsapp-icon">
                                 <i class="fab fa-whatsapp"></i>
                             </div>
@@ -767,13 +766,13 @@
                                     <a href="https://wa.me/919057191730" class="whatsapp-btn" target="_blank" rel="noopener noreferrer">
                                         <i class="fab fa-whatsapp"></i> Message
                                     </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="contact-card">
+                        <div class="contact-card">
                             <div class="contact-card-icon phone-icon">
-                            <i class="fas fa-phone"></i>
+                                <i class="fas fa-phone"></i>
                             </div>
                             <div class="contact-card-content">
                                 <h4>Phone</h4>
@@ -805,8 +804,8 @@
                                     </a>
                                 </div>
                             </div>
-                            </div>
                         </div>
+                    </div>
 
                     <div class="response-time">
                         <div class="response-icon">
@@ -931,9 +930,9 @@
                         <div class="social-cta">
                             <span>Follow <i class="fas fa-arrow-right"></i></span>
                         </div>
-                                </div>
-                            </a>
-                        </div>
+                    </div>
+                </a>
+            </div>
             <div class="social-footer">
                 <p>Prefer to connect via email? <a href="#contact" class="scroll-link">Contact me directly</a></p>
                 <div class="connection-badges">
@@ -958,7 +957,6 @@
         <p>&copy; 2024 Aarin Mahala. All rights reserved.</p>
     </footer>
 
-    <script src="instant-progress.js"></script>
     <script src="script.js"></script>
     <script src="enhanced-background-beams.js"></script>
     <script src="enhanced-spotlight.js"></script>
@@ -969,7 +967,9 @@
     <script src="projects-data.js"></script>
     <script src="enhanced-timeline.js"></script>
     <script src="lamp-section-header.js"></script>
-    <script src="container-cover-no-stars.js"></script>
+    <script src="fixed-nav-progress.js"></script>
+    <script src="components/aceternity-ui.js"></script>
+    <script src="components/cover-demo.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Animated counters for stats
@@ -1053,8 +1053,8 @@
             if (typeof newProjects !== 'undefined') {
                 const projectsGrid = document.querySelector('.projects-grid');
                 if (projectsGrid) {
-                    // Preload all project data to prevent loading delays
-                    const projectElements = newProjects.map(project => {
+                    // Add new projects to the grid
+                    newProjects.forEach(project => {
                         const projectCard = document.createElement('div');
                         projectCard.className = 'project-card';
                         
@@ -1129,14 +1129,7 @@
                         
                         projectContent.appendChild(linksDiv);
                         projectCard.appendChild(projectContent);
-                        return projectCard;
-                    });
-                    
-                    // Add all projects at once to reduce reflow and improve performance
-                    requestAnimationFrame(() => {
-                        projectElements.forEach(card => {
-                            projectsGrid.appendChild(card);
-                        });
+                        projectsGrid.appendChild(projectCard);
                     });
                 }
             }

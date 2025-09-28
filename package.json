@@ -1,5 +1,32 @@
 {
   "dependencies": {
-    "appwrite": "^17.0.2"
-  }
+    "@tsparticles/engine": "^3.9.1",
+    "@tsparticles/react": "^3.0.0",
+    "@tsparticles/slim": "^3.9.1",
+    "appwrite": "^17.0.2",
+    "clsx": "^2.1.1",
+    "motion": "^12.23.22",
+    "tailwind-merge": "^3.3.1"
+  },
+  "name": "aarinmahala",
+  "version": "1.0.0",
+  "description": "A modern, responsive portfolio website showcasing my work as an AI & ML Enthusiast, Web Developer, and Blockchain Technology Expert.",
+  "main": "3d-card-effect.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aarinmahala/aarinmahala.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Aarinmahala/aarinmahala/issues"
+  },
+  "homepage": "https://github.com/Aarinmahala/aarinmahala#readme"
 }
