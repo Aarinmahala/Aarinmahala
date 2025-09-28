@@ -1,0 +1,31 @@
+/* Enhanced Progress Bar Styles */
+.scroll-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  z-index: 1000;
+}
+
+.progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  background: linear-gradient(to right, #4f46e5, #8b5cf6, #d946ef);
+  
+  /* Remove transition for instant response */
+  transition: none;
+  
+  /* Improve performance */
+  will-change: width;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  
+  /* Enhanced visual effect */
+  box-shadow: 0 0 10px rgba(79, 70, 229, 0.5);
+}
